@@ -222,17 +222,19 @@
                     height: 58px;
                     border: 1px solid #03c75a;
                     border-radius: 33px;
-                    display: inline-block;
+                    display: inline-flex;
                     text-align: left;
 
                 }
 
                 #search-svg{
-                    display: inline-block;
+                    display: inline-flex;
                     width: 68px;
                     margin-right: 12px;
                     height: 100%;
                     padding-left: 10px;
+                    justify-content: center;
+                    align-items: center;
                 }
 
                 #search-svg svg{
@@ -266,7 +268,10 @@
                 }
 
                 #search-right{
-                    display: inline-block;
+                    flex: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: stretch;
                 }
 
                 #search > form svg{
@@ -275,7 +280,13 @@
                     fill: #03c75a
                 }
 
-                #search-keyboard::before{
+                #search-keyboard, #search-recent, #search-button {
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                #search-keyboard::before {
                     content: "";
                     display: block;
                     background-image: url(https://pm.pstatic.net/resources/asset/sp_main.04eb92b7.png);
