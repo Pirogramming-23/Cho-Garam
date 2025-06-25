@@ -239,12 +239,30 @@
                     padding-left: 10px;
                     justify-content: center;
                     align-items: center;
+                    position: relative;
                 }
+
+                #search-svg::after{
+                    display: none;
+                }
+
+                #search > form:focus-within #search-svg::after{
+                    position: absolute;
+                    display: inline-block;
+                    right: 0;
+                    top: 18px;
+                    content:'';
+                    width: 1px;
+                    height: 20px;
+                    background-color: #e4e4e4;
+                }
+
 
                 #search-svg svg{
                     width: 24px;
                     height: 24px;
                 }
+
 
                 #search > form > input{
                     width: 480px;
