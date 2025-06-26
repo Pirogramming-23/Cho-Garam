@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Clone</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #1f2329;
+      color: white;
+    }
+
+    header {
+      border-bottom: 1px solid #1f2329;
+;
+    }
+
+    .navbar {
+      max-width: 1280px;
+      margin: 0 auto;
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #1f2329;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .github-logo svg {
+      display: block;
+      fill: white;
+    }
+
+    .nav-left a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .nav-left a:hover {
+      color: #55606c;
+    }
+
+    .nav-search {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .nav-search input {
+      width: 320px;
+      height: 28px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      background-color: #0d1117;
+      color: white;
+      font-size: 14px;
+    }
+
+    .nav-search input::placeholder {
+      color: #8b949e;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-right a {
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .sign-in {
+      color: white;
+    }
+
+    .sign-up {
+      color: white;
+      padding: 5px 12px;
+      border: 1px solid white;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+    }
+
+    .sign-up:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      padding: 48px;
+    }
+
+    .left-section {
+      width: 600px;
+    }
+
+    .left-section h1 {
+      margin-top: 150px;
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .left-section p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .right-section {
+      margin-top: 75px;
+      background-color: #ffffff;
+      color: black;
+      padding: 32px;
+      border-radius: 8px;
+      width: 360px;
+    }
+
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .signup-form label {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    .signup-form input {
+      padding: 10px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .password-hint {
+      font-size: 12px;
+      color: #6a737d;
+      margin-top: 8px;
+    }
+
+    .signup-form button {
+      margin-top: 20px;
+      background-color: #2ea44f;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .signup-form .disclaimer {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #6a737d;
+    }
+
+    .login-section {
+      max-width: 400px;
+      margin: 40px auto;
+      background-color: #1f2329;
+      padding: 24px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-form label {
+      margin-top: 16px;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    .login-form input {
+      padding: 10px;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      background-color: #0d1117;
+      color: white;
+    }
+
+    .login-form button {
+      margin-top: 24px;
+      background-color: #238636;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .page-footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 60px;
+    }
+
+    .footer-cat {
+    height: 100px;
+    width: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="#" class="github-logo" aria-label="GitHub">
+          <svg height="32" width="32" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522
+            0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729
+            .866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432
+            0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123
+            2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019
+            5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"/>
+          </svg>
+        </a>
+        <a href="#">Why GitHub?</a>
+        <a href="#">Team</a>
+        <a href="#">Enterprise</a>
+        <a href="#">Explore</a>
+        <a href="#">Marketplace</a>
+        <a href="#">Pricing</a>
+      </div>
+      <div class="nav-search">
+        <input type="text" placeholder="Search GitHub">
+      </div>
+      <div class="nav-right">
+        <a href="#" class="sign-in">Sign in</a>
+        <a href="#" class="sign-up">Sign up</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="left-section">
+      <h1>Built for<div></div> developers</h1>
+      <p>
+        GitHub is a development platform inspired by the way you work.
+        From <strong>open source</strong> to <strong>business</strong>,
+        you can host and review code, manage projects, and build software
+        alongside 50 million developers.
+      </p>
+    </section>
+
+    <section class="right-section">
+      <form class="signup-form">
+        <label>Username</label>
+        <input type="text" placeholder="Enter username">
+        <label>Email</label>
+        <input type="email" placeholder="Enter email">
+        <label>Password</label>
+        <input type="password" placeholder="Create a password">
+        <p class="password-hint">Make sure it’s at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
+        <button type="submit">Sign up for GitHub</button>
+        <p class="disclaimer">
+          By clicking “Sign up for GitHub”, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Statement</a>.
+        </p>
+      </form>
+    </section>
+  </main>
+  <footer class="page-footer">
+        <a href="#" class="github-logoo" aria-label="GitHubb">
+        <img alt="" src="/image/attachment%3A13724a46-71d5-4998-a437-98be248e03a4%3Afooter.png?table=block&amp;id=21cbe9e6-3d9b-81fa-a413-c267ade5b867&amp;spaceId=1ed62e32-3cef-4781-b5ef-039635855c73&amp;width=660&amp;userId=&amp;cache=v2" referrerpolicy="same-origin" style="display: block; object-fit: cover; border-radius: 2px; height: 139.699px; pointer-events: auto; width: 100%; max-height: 139.699px;">
+        </a>
+  </footer>
+</body>
+</html>
