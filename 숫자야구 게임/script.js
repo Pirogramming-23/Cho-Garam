@@ -19,6 +19,7 @@ function init_game() {
     console.log("정답:", answer); 
 }
 
+// 숫자 발생
 function generateUniqueNumbers() {
     const digits = [];
     while (digits.length < 3) {
