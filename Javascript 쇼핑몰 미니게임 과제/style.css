@@ -80,7 +80,7 @@ body{
   height: 60%;
   list-style: none;
   padding-left: 0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .item{
