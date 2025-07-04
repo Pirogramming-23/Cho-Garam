@@ -18,5 +18,33 @@ while True:
 
     break
 
-for i in range(1, num + 1):
-    print(f"playerA : {i}")
+current = 1
+for i in range(num):
+    print(f"playerA : {current}")
+    current += 1
+
+### 몇 개 까지 작성했는지 알아야 다음 플레이어를 추가 할 수 있으므로 현재 값 추가
+
+num = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+
+##B 입력 받음
+
+while True:
+    if not num.isdigit(): ###정수 확인 메서드 사용
+        print("정수를 입력하세요")
+        num = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+        continue
+
+    num = int(num)
+
+    if num not in [1, 2, 3]:
+        print("1, 2, 3 중 하나를 입력하세요")
+        num = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
+        continue
+
+    break
+
+
+for i in range(num):
+    print(f"playerB : {current}")
+    current += 1
