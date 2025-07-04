@@ -25,6 +25,7 @@ while current <= 31: ### 현재 값이 31이 될 떄 까지 반복
     for i in range(num):
         print(f"playerA : {current}")
         if current == 31:
+            print("playerB win!") 
             exit()
         current += 1
 
@@ -53,5 +54,6 @@ while current <= 31: ### 현재 값이 31이 될 떄 까지 반복
     for i in range(num):
         print(f"playerB : {current}")
         if current == 31:
+            print("playerA win!") 
             exit()
         current += 1
