@@ -3,7 +3,7 @@ import random
 def brGame(player, current):
     if player == "computer":
         num = random.randint(1, 3)
-        print(f"컴퓨터가 선택한 수의 개수: {num}")
+
     else:
         num = input("부를 숫자의 개수를 입력하세요(1, 2, 3만 입력 가능) : ")
         while True:
