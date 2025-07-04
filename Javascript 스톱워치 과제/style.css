@@ -1,0 +1,78 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f2f4f5;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.container {
+  width: 320px;
+  background: #fff;
+  border-radius: 70px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.stopwatch {
+  background: #dfe7e4;
+  border-radius: 100px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+#time {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.buttons button {
+  background: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  margin: 0 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.record-section {
+  margin-top: 1.5rem;
+}
+
+.record-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #b5c8be;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+#recordList {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5rem;
+}
+
+#recordList li {
+  display: flex;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 0.4rem 0.8rem;
+  margin-top: 5px;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+#recordList li input {
+  margin-right: 10px;
+}
