@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>피로그래밍 스톱워치</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>⏱ 피로그래밍 스톱워치</h1>
+    <div class="stopwatch">
+      <div id="time">00:00</div>
+      <div class="buttons">
+        <button id="start">start</button>
+        <button id="stop">stop</button>
+        <button id="reset">reset</button>
+      </div>
+    </div>
+
+    <div class="record-section">
+      <div class="record-header">
+        <input type="checkbox" id="checkAll" />
+        <span>구간 기록</span>
+        <button id="deleteSelected" title="선택 삭제">🗑</button>
+      </div>
+      <ul id="recordList"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
