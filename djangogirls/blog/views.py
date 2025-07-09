@@ -1,5 +1,6 @@
 
-from diango.utils import timezone
+from django.utils import timezone
+from django.shortcuts import render
 from .models import Post
 
 def post_list(request):
