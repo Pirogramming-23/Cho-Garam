@@ -79,6 +79,12 @@
             .delete-link:hover {
                 background-color: #b02a37;
             }
+            .review img.poster {
+            width: 270px;   
+            height: 360px;  
+            object-fit: cover;
+            border-radius: 8px;
+        }
         </style>
     </head>
     <body>
@@ -86,6 +92,9 @@
             <div class="page-title">영화 리뷰 상세 보기</div>
 
             <div class="review">
+                <img src="{{ review.image_url|default:'https://via.placeholder.com/300x400?text=No+Image' }}" alt="포스터" class="poster">
+
+
                 <div class="label">제목</div>
                 <div class="value">{{ review.title }}</div>
 

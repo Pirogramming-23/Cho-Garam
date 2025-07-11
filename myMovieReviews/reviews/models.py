@@ -9,6 +9,7 @@ class Review(models.Model):
     director = models.CharField(max_length=32)
     actor = models.CharField(max_length=32)
     content = models.TextField()
+    image_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 # Create your models here.

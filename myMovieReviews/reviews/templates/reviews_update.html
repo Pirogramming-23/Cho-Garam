@@ -49,22 +49,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>리뷰 작성하기</h1>
+        <h1>리뷰 수정하기</h1>
 
-        <form action="/reviews/create/" method="post">
+        <form action="/reviews/{{ review.id }}/update/" method="post">
             {% csrf_token %}
+            <input name="title" placeholder="제목" value="{{ review.title }}" required><br>
+            <input name="release" placeholder="개봉년도" value="{{ review.release }}" required><br>
+            <input name="genre" placeholder="장르" value="{{ review.genre }}" required><br>
+            <input name="score" placeholder="별점" value="{{ review.score }}" required><br>
+            <input name="runtime" placeholder="러닝타임" value="{{ review.runtime }}" required><br>
+            <input name="director" placeholder="감독" value="{{ review.director }}" required><br>
+            <input name="actor" placeholder="주연 배우" value="{{ review.actor }}" required><br>
+            <input name="image_url" placeholder="포스터 이미지 URL" value="{{ review.image_url }}" required><br>
+            <textarea name="content" cols="30" rows="10" placeholder="내용" required>{{ review.content }}</textarea><br>
 
-            <input name="title" placeholder="제목" required /> 
-            <input name="release" placeholder="개봉년도" required /> 
-            <input name="genre" placeholder="장르" required /> 
-            <input name="score" placeholder="별점" required /> 
-            <input name="runtime" placeholder="러닝타임" required /> 
-            <input name="director" placeholder="감독" required /> 
-            <input name="actor" placeholder="주연 배우" required /> 
-            <textarea name="content" cols="30" rows="10" placeholder="내용을 입력하세요." required></textarea>
-            <input name="image_url" placeholder="포스터 이미지 URL" required><br>
-
-            <input type="submit" value="작성완료">
+            <input type="submit" value="수정완료">
         </form>
     </div>
 </body>
