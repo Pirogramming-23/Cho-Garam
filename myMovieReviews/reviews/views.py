@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Review
 
 
@@ -9,4 +9,19 @@ def reviews_list(request):
 def reviews_read(request, pk):
     review = Review.objects.get(pk=pk)
     return render(request, 'reviews_read.html', {'review': review})
+
+def reviews_create(request): 
+  if request.method == "POST" :
+    Review.objects.create(
+    title=request.POST["title"],
+    release=request.POST["release"],
+    genre=request.POST["genre"],
+    score=request.POST["score"],
+    runtime=request.POST["runtime"],
+    director=request.POST["director"],
+    actor=request.POST["actor"],
+    content=request.POST["content"]
+    )
+    return redirect("/reviews/")
+  return render(request, "reviews_create.html")
 # Create your views here.

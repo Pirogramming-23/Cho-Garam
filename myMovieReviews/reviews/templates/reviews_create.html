@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 작성하기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>리뷰 작성하기</h1>
+
+        <form action="/reviews/create/" method="post">
+            {% csrf_token %}
+            <input name="title" placeholder="제목" required /> 
+            <input name="release" placeholder="개봉년도" required /> 
+            <input name="genre" placeholder="장르" required /> 
+            <input name="score" placeholder="별점" required /> 
+            <input name="runtime" placeholder="러닝타임" required /> 
+            <input name="director" placeholder="감독" required /> 
+            <input name="actor" placeholder="주연 배우" required /> 
+            <textarea name="content" cols="30" rows="10" placeholder="내용을 입력하세요." required></textarea>
+
+            <input type="submit" value="작성완료">
+        </form>
+    </div>
+</body>
+</html>
