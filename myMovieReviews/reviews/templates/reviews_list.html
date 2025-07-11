@@ -1,3 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}리뷰 목록 - MyMovieReview{% endblock %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -74,8 +80,8 @@
                     <div class="label">제목</div>
                     <div class="title">{{ review.title }}</div>
 
-                    <div class="label">감독</div>
-                    <div class="content">{{ review.director }}</div>
+                    <div class="label">개봉 연도</div>
+                    <div class="content">{{ review.release }}</div>
 
                     <div class="label">장르</div>
                     <div class="content">{{ review.genre }}</div>
@@ -90,3 +96,5 @@
     </div>
 </body>
 </html>
+
+{% endblock %}
