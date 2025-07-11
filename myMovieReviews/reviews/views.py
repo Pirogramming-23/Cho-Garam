@@ -24,4 +24,11 @@ def reviews_create(request):
     )
     return redirect("/reviews/")
   return render(request, "reviews_create.html")
+
+
+def reviews_delete(request, pk):
+    if request.method == "POST":
+        review = Review.objects.get(id=pk)
+        review.delete()
+    return redirect("/reviews/")
 # Create your views here.
