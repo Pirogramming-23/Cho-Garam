@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}리뷰 목록 - MyMovieReview{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 작성하기</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>리뷰 수정하기</h1>
+
+        <form action="/reviews/{{ review.id }}/update/" method="post">
+            {% csrf_token %}
+            <input name="title" placeholder="제목" value="{{ review.title }}" required><br>
+            <input name="release" placeholder="개봉년도" value="{{ review.release }}" required><br>
+            <input name="genre" placeholder="장르" value="{{ review.genre }}" required><br>
+            <input name="score" placeholder="별점" value="{{ review.score }}" required><br>
+            <input name="runtime" placeholder="러닝타임" value="{{ review.runtime }}" required><br>
+            <input name="director" placeholder="감독" value="{{ review.director }}" required><br>
+            <input name="actor" placeholder="주연 배우" value="{{ review.actor }}" required><br>
+            <input name="image_url" placeholder="포스터 이미지 URL" value="{{ review.image_url }}" required><br>
+            <textarea name="content" cols="30" rows="10" placeholder="내용" required>{{ review.content }}</textarea><br>
+
+            <input type="submit" value="수정완료">
+        </form>
+    </div>
+</body>
+</html>
+
+{% endblock %}
