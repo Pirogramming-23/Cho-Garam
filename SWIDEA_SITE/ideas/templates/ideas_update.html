@@ -1,0 +1,29 @@
+<h1>아이디어 수정하기</h1>
+
+<form action="/ideas/{{ idea.id }}/update/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input name="title" placeholder="제목" value="{{ idea.title }}" required><br/>
+
+    <input type="file" name="image"><br/>
+    {% if idea.image %}
+        <p>현재 이미지: <img src="{{ idea.image.url }}" style="height: 80px;"></p>
+    {% endif %}
+
+    <textarea name="content" cols="30" rows="10" placeholder="내용">{{ idea.content }}</textarea><br/>
+
+    <input type="number" name="interest" placeholder="관심도" value="{{ idea.interest }}" min="0"><br/>
+
+    <select name="devtool" required>
+        <option value="">개발툴 선택</option>
+        <option value="VSCode" {% if idea.devtool == "VSCode" %}selected{% endif %}>VSCode</option>
+        <option value="PyCharm" {% if idea.devtool == "PyCharm" %}selected{% endif %}>PyCharm</option>
+        <option value="IntelliJ" {% if idea.devtool == "IntelliJ" %}selected{% endif %}>IntelliJ</option>
+        <option value="Eclipse" {% if idea.devtool == "Eclipse" %}selected{% endif %}>Eclipse</option>
+        <option value="Other" {% if idea.devtool == "Other" %}selected{% endif %}>Other</option>
+    </select><br/>
+
+    <div>
+        <input type="submit" value="수정 완료">
+    </div>
+</form>
