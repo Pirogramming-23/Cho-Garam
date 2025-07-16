@@ -16,9 +16,24 @@
 <div class="idea-list">
     {% for post in posts %}
     <div class="idea-card">
-    <button type="button" onclick="toggleStar(event, {{ post.pk }})" id="star-btn-{{ post.pk }}">
-        {% if is_starred %} ⭐ {% else %} ☆ {% endif %}
-    </button>
+        <button onclick="toggleStar({{ post.pk }})" id="star-btn-{{ post.pk }}">
+            {% if post.is_starred %}⭐{% else %}☆{% endif %}
+        </button>
+
+        <script>
+        function toggleStar(postId) {
+            fetch(`/posts/${postId}/toggle_star/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const btn = document.getElementById(`star-btn-${postId}`);
+                btn.innerText = (data.status === 'on') ? '⭐' : '☆';
+            });
+        }
+        </script>
+
 
         <a href="{% url 'posts:detail' post.pk %}">
             <h3>{{ post.title }}</h3>
@@ -49,9 +64,11 @@
 </div>
 
 <script>
-function toggleStar(event, postId) {
-    event.preventDefault();
-    fetch(`/posts/${postId}/toggle_star/`, { method: 'POST' })
+function toggleStar(postId) {
+    fetch(`/posts/${postId}/toggle_star/`, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+    })
     .then(response => response.json())
     .then(data => {
         const btn = document.getElementById(`star-btn-${postId}`);
@@ -59,11 +76,10 @@ function toggleStar(event, postId) {
     });
 }
 
-function adjustInterest(event, postId, action) {
-    event.preventDefault();
+function adjustInterest(postId, action) {
     fetch(`/posts/${postId}/adjust_interest/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': getCookie('csrftoken') },
         body: `action=${action}`
     })
     .then(response => response.json())
@@ -71,5 +87,21 @@ function adjustInterest(event, postId, action) {
         document.getElementById(`interest-${postId}`).innerText = data.interest;
     });
 }
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 </script>
+
 {% endblock %}

@@ -11,18 +11,13 @@ def post_list(request):
     sort = request.GET.get("sort", "created")
     ideas = Post.objects.all()
 
-    # 쿠키 기준 찜 상태 가져오기
-    cookie_star_status = {}
-    for idea in ideas:
-        cookie_star_status[idea.pk] = request.COOKIES.get(f'star_{idea.pk}', 'off')
+    cookie_star_status = {idea.pk: request.COOKIES.get(f'star_{idea.pk}', 'off') for idea in ideas}
 
-    # 찜순 정렬 우선 처리
+    for idea in ideas:
+        idea.is_starred = cookie_star_status.get(idea.pk) == "on"
+
     if sort == "star":
-        ideas = sorted(
-            ideas,
-            key=lambda x: (cookie_star_status.get(x.pk) == "on", x.pk),
-            reverse=True
-        )
+        ideas = sorted(ideas, key=lambda x: (x.is_starred, x.pk), reverse=True)
     elif sort == "interest":
         ideas = ideas.order_by("-interest")
     elif sort == "title":
@@ -37,29 +32,25 @@ def post_list(request):
     context = {
         "posts": posts,
         "sort": sort,
-        "cookie_star_status": cookie_star_status,
     }
     return render(request, "posts/posts_list.html", context)
 
 
-
-
+@csrf_exempt
 @csrf_exempt
 def toggle_star(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if not request.session.session_key:
-        request.session.save()
-    session_key = request.session.session_key
-
-    star, created = IdeaStar.objects.get_or_create(session_key=session_key, post=post)
-
-    if not created:
-        star.delete()
-        status = 'off'
-    else:
-        status = 'on'
-
+    if request.method == 'POST':
+        star_key = f'star_{pk}'
+        if request.COOKIES.get(star_key) == 'on':
+            response = JsonResponse({'status': 'off'})
+            response.set_cookie(star_key, 'off')
+        else:
+            response = JsonResponse({'status': 'on'})
+            response.set_cookie(star_key, 'on')
+        return response
+    status = request.COOKIES.get(star_key, 'off')
     return JsonResponse({'status': status})
+
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
@@ -130,3 +121,4 @@ def post_delete(request, pk):
         return redirect('posts:list')
 
     return redirect('posts:detail', pk=pk)
+
