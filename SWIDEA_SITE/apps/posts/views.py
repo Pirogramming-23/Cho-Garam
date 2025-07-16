@@ -85,17 +85,13 @@ def post_update(request, pk):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    session_key = request.session.session_key
-    if session_key:
-        is_starred = IdeaStar.objects.filter(session_key=session_key, post=post).exists()
-    else:
-        is_starred = False
+    is_starred = request.COOKIES.get(f'star_{post.pk}', 'off') == 'on'
 
     context = {
         'post': post,
         'is_starred': is_starred,
     }
-    return render(request, 'posts/posts_detail.html', context)
+    return render(request, "posts/posts_detail.html", context)
 
 @csrf_exempt
 def adjust_interest(request, pk):
