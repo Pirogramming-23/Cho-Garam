@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Devtool
 from .forms import DevtoolForm
+from apps.posts.models import Post
 
 
 def devtool_list(request):
@@ -10,8 +11,13 @@ def devtool_list(request):
 
 def devtool_detail(request, pk):
     devtool = get_object_or_404(Devtool, pk=pk)
-    return render(request, 'devtools/devtool_detail.html', {'devtool': devtool})
+    posts = Post.objects.filter(devtool=devtool)
 
+    context = {
+        "devtool": devtool,
+        "posts": posts,
+    }
+    return render(request, "devtools/devtool_detail.html", context)
 
 def devtool_create(request):
     if request.method == 'POST':

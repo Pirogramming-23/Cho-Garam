@@ -10,6 +10,10 @@
         .button-group { margin-top: 20px; }
         .button { display: inline-block; padding: 8px 12px; background: green; color: white; border-radius: 4px; margin-right: 8px; text-decoration: none; }
         .delete-button { background: red; }
+        .idea-list { margin-top: 20px; }
+        .idea-list ul { list-style: none; padding: 0; }
+        .idea-list li { margin-bottom: 8px; }
+        .idea-list a { color: purple; text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -18,6 +22,17 @@
         <p><strong>종류:</strong> {{ devtool.kind }}</p>
         <p><strong>내용:</strong></p>
         <p>{{ devtool.content }}</p>
+
+        <div class="idea-list">
+            <h3>이 개발툴을 사용하는 아이디어 목록</h3>
+            <ul>
+                {% for post in posts %}
+                    <li><a href="{% url 'posts:detail' post.pk %}">{{ post.title }}</a></li>
+                {% empty %}
+                    <li>이 개발툴을 사용하는 아이디어가 없습니다.</li>
+                {% endfor %}
+            </ul>
+        </div>
 
         <div class="button-group">
             <a href="{% url 'devtools:update' devtool.pk %}" class="button">수정</a>
