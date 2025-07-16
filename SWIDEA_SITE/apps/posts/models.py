@@ -11,3 +11,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class IdeaStar(models.Model):
+    session_key = models.CharField(max_length=40, default='temp-session')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('session_key', 'post')
