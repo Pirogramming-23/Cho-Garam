@@ -13,6 +13,10 @@
     <p>관심도: {{ post.interest }}</p>
 
     <a href="{% url 'posts:update' post.pk %}">아이디어 수정</a>
+    <form action="{% url 'posts:delete' post.pk %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+    </form>
     <a href="{% url 'posts:list' %}">목록으로</a>
 </div>
 {% endblock %}

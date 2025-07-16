@@ -10,4 +10,5 @@ urlpatterns = [
     path('<int:pk>/', views.post_detail, name='detail'),
     path('<int:pk>/adjust_interest/', views.adjust_interest, name='adjust_interest'),
     path('<int:pk>/toggle_star/', views.toggle_star, name='toggle_star'),
+    path('<int:pk>/delete/', views.post_delete, name='delete'),
 ]

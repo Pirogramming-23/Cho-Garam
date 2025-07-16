@@ -42,7 +42,7 @@ def post_list(request):
     return render(request, "posts/posts_list.html", context)
 
 
-@csrf_exempt
+
 
 @csrf_exempt
 def toggle_star(request, pk):
@@ -112,3 +112,21 @@ def adjust_interest(request, pk):
         return JsonResponse({'interest': post.interest})
     
     return JsonResponse({'error': 'invalid request'}, status=400)
+
+def get_or_create_cookie_id(request, response=None):
+    cookie_id = request.COOKIES.get('ideastar_id')
+    if not cookie_id:
+        import uuid
+        cookie_id = str(uuid.uuid4())
+        if response:
+            response.set_cookie('ideastar_id', cookie_id, max_age=60*60*24*30)  # 30일 유지
+    return cookie_id
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == "POST":
+        post.delete()
+        return redirect('posts:list')
+
+    return redirect('posts:detail', pk=pk)
