@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발툴 상세</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .devtool-detail { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        h1 { margin-bottom: 10px; }
+        .button-group { margin-top: 20px; }
+        .button { display: inline-block; padding: 8px 12px; background: green; color: white; border-radius: 4px; margin-right: 8px; text-decoration: none; }
+        .delete-button { background: red; }
+    </style>
+</head>
+<body>
+    <div class="devtool-detail">
+        <h1>{{ devtool.name }}</h1>
+        <p><strong>종류:</strong> {{ devtool.kind }}</p>
+        <p><strong>내용:</strong></p>
+        <p>{{ devtool.content }}</p>
+
+        <div class="button-group">
+            <a href="{% url 'devtools:update' devtool.pk %}" class="button">수정</a>
+            <a href="{% url 'devtools:delete' devtool.pk %}" class="button delete-button" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+            <a href="{% url 'devtools:list' %}" class="button">목록</a>
+        </div>
+    </div>
+</body>
+</html>

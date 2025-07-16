@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Idea List</h2>
+
+<form method="get" class="sort-form">
+    <select name="sort" onchange="this.form.submit()">
+        <option value="">--정렬기준--</option>
+        <option value="created" {% if sort == "created" %}selected{% endif %}>등록순</option>
+        <option value="interest" {% if sort == "interest" %}selected{% endif %}>관심순</option>
+        <option value="title" {% if sort == "title" %}selected{% endif %}>이름순</option>
+    </select>
+</form>
+
+<div class="idea-list">
+    {% for post in posts %}
+    <a href="{% url 'posts:detail' post.pk %}">
+        <div class="idea-card">
+            {% if post.image %}
+                <img src="{{ post.image.url }}" alt="이미지">
+            {% endif %}
+            <h3>{{ post.title }}</h3>
+            <p>예상 개발 툴: {{ post.devtool.name }}</p>
+            <p>아이디어 관심도: {{ post.interest }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+
+<div class="pagination">
+    {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">이전</a>
+    {% endif %}
+    <span>{{ posts.number }} / {{ posts.paginator.num_pages }}</span>
+    {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}{% if sort %}&sort={{ sort }}{% endif %}">다음</a>
+    {% endif %}
+</div>
+{% endblock %}
