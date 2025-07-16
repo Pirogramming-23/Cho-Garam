@@ -10,7 +10,6 @@ class Idea(models.Model):
     ]
 
     title = models.CharField(max_length=32)
-    user = models.CharField(max_length=32)
     image = models.ImageField(upload_to='idea_images/', blank=True, null=True)
     content = models.TextField()
     interest = models.IntegerField(default=0)
