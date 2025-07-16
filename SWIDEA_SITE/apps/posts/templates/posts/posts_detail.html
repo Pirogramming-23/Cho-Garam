@@ -17,10 +17,11 @@
 <body>
     <div class="post-detail">
         <h1>{{ post.title }}</h1>
-        
+
         {% if post.image %}
             <img src="{{ post.image.url }}" alt="썸네일" style="width: 100%; max-width: 300px;">
         {% endif %}
+        
 
         <p><strong>예상 개발 툴: <a href="{% url 'devtools:detail' post.devtool.pk %}">{{ post.devtool.name }}</a></p>
         <p><strong>내용:</strong> {{ post.content }}</p>

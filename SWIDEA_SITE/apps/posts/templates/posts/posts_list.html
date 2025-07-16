@@ -16,24 +16,9 @@
 <div class="idea-list">
     {% for post in posts %}
     <div class="idea-card">
-        <button onclick="toggleStar({{ post.pk }})" id="star-btn-{{ post.pk }}">
-            {% if post.is_starred %}⭐{% else %}☆{% endif %}
+        <button type="button" onclick="toggleStar(event, {{ post.pk }})" id="star-btn-{{ post.pk }}">
+            {% if post.is_starred %} ⭐ {% else %} ☆ {% endif %}
         </button>
-
-        <script>
-        function toggleStar(postId) {
-            fetch(`/posts/${postId}/toggle_star/`, {
-                method: 'POST',
-                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                const btn = document.getElementById(`star-btn-${postId}`);
-                btn.innerText = (data.status === 'on') ? '⭐' : '☆';
-            });
-        }
-        </script>
-
 
         <a href="{% url 'posts:detail' post.pk %}">
             <h3>{{ post.title }}</h3>
@@ -43,9 +28,7 @@
             <img src="{{ post.image.url }}" alt="썸네일" style="width: 100%; max-width: 300px;">
         {% endif %}
 
-    
         <p>관심도: <span id="interest-{{ post.pk }}">{{ post.interest }}</span></p>
-        <p>예상 개발 툴: <span><a href="{% url 'devtools:detail' post.devtool.pk %}">{{ post.devtool.name }}</span></a></p>
 
         <button type="button" onclick="adjustInterest(event, {{ post.pk }}, 'plus')">+</button>
         <button type="button" onclick="adjustInterest(event, {{ post.pk }}, 'minus')">-</button>
@@ -64,11 +47,9 @@
 </div>
 
 <script>
-function toggleStar(postId) {
-    fetch(`/posts/${postId}/toggle_star/`, {
-        method: 'POST',
-        headers: { 'X-CSRFToken': getCookie('csrftoken') },
-    })
+function toggleStar(event, postId) {
+    event.preventDefault();
+    fetch(`/posts/${postId}/toggle_star/`, { method: 'POST' })
     .then(response => response.json())
     .then(data => {
         const btn = document.getElementById(`star-btn-${postId}`);
@@ -76,10 +57,11 @@ function toggleStar(postId) {
     });
 }
 
-function adjustInterest(postId, action) {
+function adjustInterest(event, postId, action) {
+    event.preventDefault();
     fetch(`/posts/${postId}/adjust_interest/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': getCookie('csrftoken') },
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=${action}`
     })
     .then(response => response.json())
@@ -87,21 +69,5 @@ function adjustInterest(postId, action) {
         document.getElementById(`interest-${postId}`).innerText = data.interest;
     });
 }
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 </script>
-
 {% endblock %}

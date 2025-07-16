@@ -13,11 +13,13 @@ def post_list(request):
 
     cookie_star_status = {idea.pk: request.COOKIES.get(f'star_{idea.pk}', 'off') for idea in ideas}
 
-    for idea in ideas:
-        idea.is_starred = cookie_star_status.get(idea.pk) == "on"
-
+    # 정렬
     if sort == "star":
-        ideas = sorted(ideas, key=lambda x: (x.is_starred, x.pk), reverse=True)
+        ideas = sorted(
+            ideas,
+            key=lambda x: (cookie_star_status.get(x.pk) == "on", x.pk),
+            reverse=True
+        )
     elif sort == "interest":
         ideas = ideas.order_by("-interest")
     elif sort == "title":
@@ -25,15 +27,21 @@ def post_list(request):
     else:
         ideas = ideas.order_by("-created_at")
 
+    # 여기서 posts = ideas 정의!
     paginator = Paginator(ideas, 4)
     page_number = request.GET.get("page")
     posts = paginator.get_page(page_number)
+
+    # 페이지 단위로 is_starred 설정
+    for post in posts:
+        post.is_starred = (cookie_star_status.get(post.pk) == "on")
 
     context = {
         "posts": posts,
         "sort": sort,
     }
     return render(request, "posts/posts_list.html", context)
+
 
 
 @csrf_exempt
