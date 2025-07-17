@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>등록 / 수정 폼</h2>
+
+<form method="POST" enctype="multipart/form-data" style="background: #222; padding: 20px; border-radius: 12px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="padding: 10px 20px; border: none; border-radius: 6px; background: green; color: white;">저장</button>
+</form>
+{% endblock %}

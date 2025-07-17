@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Devtool List</h2>
+
+<div class="idea-list">
+    {% for devtool in devtools %}
+    <a href="{% url 'devtools:detail' devtool.pk %}" style="text-decoration: none; color: inherit;">
+        <div class="idea-card" style="cursor: pointer;">
+            <h3>{{ devtool.name }}</h3>
+            <p>종류: {{ devtool.kind }}</p>
+            <p>{{ devtool.content|truncatechars:50 }}</p>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

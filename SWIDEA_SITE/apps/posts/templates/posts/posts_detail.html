@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }} - 상세 페이지</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+        .post-detail { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        h1 { margin-bottom: 10px; }
+        .button-group { margin-top: 20px; }
+        .button { display: inline-block; padding: 8px 12px; background: green; color: white; border-radius: 4px; margin-right: 8px; text-decoration: none; }
+        .delete-button { background: red; }
+        .thumbnail { max-width: 100%; height: auto; margin-top: 10px; }
+        .devtool-list { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+
+        <button type="button" onclick="toggleStar(event, {{ post.pk }})" id="star-btn-{{ post.pk }}">
+            {% if is_starred %} ⭐ {% else %} ☆ {% endif %}
+        </button>
+
+
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="썸네일" style="width: 100%; max-width: 300px;">
+        {% endif %}
+        
+
+        <p><strong>예상 개발 툴: <a href="{% url 'devtools:detail' post.devtool.pk %}">{{ post.devtool.name }}</a></p>
+        <p><strong>내용:</strong> {{ post.content }}</p>
+        <p><strong>관심도:</strong> {{ post.interest }}</p>
+
+                <div class="button-group">
+            <a href="{% url 'posts:update' post.pk %}" class="button">아이디어 수정</a>
+            <form action="{% url 'posts:delete' post.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="button delete-button">삭제</button>
+            </form>
+            <a href="{% url 'posts:list' %}" class="button">목록으로</a>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleStar(event, postId) {
+            event.preventDefault();
+            fetch(`/posts/${postId}/toggle_star/`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => {
+                const btn = document.getElementById(`star-btn-${postId}`);
+                btn.innerText = (data.status === 'on') ? '⭐' : '☆';
+            });
+        }
+
+        function adjustInterest(event, postId, action) {
+            event.preventDefault();
+            fetch(`/posts/${postId}/adjust_interest/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `action=${action}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`interest-${postId}`).innerText = data.interest;
+            });
+        }
+    </script>
+</body>
+</html>
